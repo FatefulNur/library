@@ -14,7 +14,9 @@ class BooksController extends Controller
             'author' => 'required'
         ]);
 
-        Book::create($data);
+        $book = Book::create($data);
+
+        return redirect()->to($book->path());
     }
 
     public function update(Book $book)
@@ -25,5 +27,14 @@ class BooksController extends Controller
         ]);
 
         $book->update($data);
+
+        return redirect()->to($book->path());
+    }
+
+    public function destroy(Book $book)
+    {
+        $book->delete();
+
+        return redirect()->to('/books');
     }
 }
